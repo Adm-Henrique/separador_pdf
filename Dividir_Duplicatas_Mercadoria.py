@@ -41,15 +41,18 @@ def split_pdf_by_employees():
                 with open(output_path, 'wb') as output_pdf:
                     pdf_writer.write(output_pdf)
 
+
+
     except Exception as e:
         exibir_mensagem_erro(f"Ocorreu um erro: {e}")
 
 
+    conclusao()
 ################################################################################
 #### Função para exibir mensagem de erro ao usuário
 
 def exibir_mensagem_erro(mensagem):
-    janela_erro = ctk.CTk()
+    janela_erro = ctk.CTkToplevel(div_mercadoria_pdf)
     janela_erro.title("Erro")
 
     # Estimativa de largura da janela com base na largura da mensagem
@@ -58,14 +61,39 @@ def exibir_mensagem_erro(mensagem):
 
     janela_erro.geometry(f"{largura_mensagem}x150")  # Altura fixa de 150 pixels
 
+    janela_erro.resizable(width=False, height=False)
+
     label = ctk.CTkLabel(master=janela_erro, text=mensagem, wraplength=largura_mensagem - 20)
     label.pack(pady=20, padx=10)
 
     botao = ctk.CTkButton(master=janela_erro, text="OK", command=janela_erro.destroy)
     botao.pack(pady=10)
 
-    janela_erro.mainloop()
 
+    janela_erro.transient()
+    janela_erro.grab_set()  
+    janela_erro.mainloop()
+    div_mercadoria_pdf.wait_window(janela_erro)
+
+
+################################################################################
+#### Função para exibir mensagem de conclusão:
+
+def conclusao():
+    jan_conclusao = ctk.CTkToplevel(div_mercadoria_pdf)
+    jan_conclusao.title("Relatório OK")
+    jan_conclusao.geometry("320x150")
+
+    label_conclusao = ctk.CTkLabel(master=jan_conclusao, text='Documento dividido!!')
+    label_conclusao.pack(pady=20, padx=10)
+
+    botao = ctk.CTkButton(master=jan_conclusao, text="OK", command=jan_conclusao.destroy)
+    botao.pack(pady=10)
+ 
+    jan_conclusao.grab_set()  
+    jan_conclusao.mainloop()
+    jan_conclusao.mainloop()
+    div_mercadoria_pdf.wait_window(jan_conclusao)
 
 ################################################################################
 #### Função para pegar caminho do arquivo e diretório para salvar:
@@ -113,5 +141,6 @@ botao_arquivo.grid(row=0, column=2)
 
 botao_diretorio = ctk.CTkButton(master=div_mercadoria_pdf, text='Ir...', width=10, height=30, command=caminho_diretorio)
 botao_diretorio.grid(row=1, column=2)
+
 
 div_mercadoria_pdf.mainloop()

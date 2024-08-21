@@ -4,7 +4,7 @@ import PyPDF2 as pdf
 
 # Abrir o arquivo PDF
 
-abrir_pdf = pdf.PdfReader('H:\Python\pdf\EXTRATO BANCO DE HORAS ANALITICO.PDF', 'rb')
+abrir_pdf = pdf.PdfReader("H:\Python\separador_pdf\EXTRATO BANCO DE HORAS ANALITICO.pdf")
 
 # Lista para armazenar os nomes dos funcionários
 nomes_funcionarios = []
@@ -23,3 +23,15 @@ for i in range(len(abrir_pdf.pages)):
     nomes_funcionarios.append(nome)
 
 print(nomes_funcionarios)
+
+
+
+# import PyPDF2 as pdf
+
+# # Abrir o arquivo PDF
+
+# abrir_pdf = pdf.PdfReader("H:\Python\separador_pdf\EXTRATO BANCO DE HORAS ANALITICO.pdf")
+
+# pagina = abrir_pdf.pages[50]
+# texto = pagina.extract_text().split('\n')
+# print(texto[2])
